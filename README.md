@@ -20,10 +20,10 @@ recipient proportionally.
 | Network      | Address                                        | Explorer |
 |--------------|------------------------------------------------|----------|
 | Arc Testnet  | `0x20b1f718b7a612f605414bc47c5a2abdde1659cc`   | [ArcScan](https://explorer.testnet.arc.io/address/0x20b1f718b7a612f605414bc47c5a2abdde1659cc) |
-| Arc Mainnet  | _not yet deployed — see Mainnet Deployment below_ | — |
+| Arc Mainnet  | _0x9336ef11392Db07873cca919EeD8A4C6Cc1bB881_ | — |
 
 USDC on Arc Testnet: `0x3600000000000000000000000000000000000000`
-USDC on Arc Mainnet: `0x3c499c542cef5e3811e1192ce70d8cc03d5c3359`
+USDC on Arc Mainnet: `0x3600000000000000000000000000000000000000`
 (verify both addresses at [developers.circle.com](https://developers.circle.com/stablecoins/usdc-on-test-networks) before use)
 
 ---
