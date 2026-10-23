@@ -1,4 +1,4 @@
-import artifact from '../contracts/out/SplitFactory.sol/SplitFactory.json'
+import artifact from "./abi/SplitFactory.json";
 
 export const SPLIT_FACTORY = {
   address: '0x9336ef11392Db07873cca919EeD8A4C6Cc1bB881' as const,
