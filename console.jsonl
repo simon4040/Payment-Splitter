@@ -1,0 +1,247 @@
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792400994351}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792400994351}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792401459570}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792401459576}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792401501407}
+{"level":"debug","message":"[vite] hot updated: /src/components/SendPanel.tsx","timestamp":1792401501408}
+{"level":"debug","message":"[vite] hot updated: /src/components/DistributeButton.tsx","timestamp":1792401501408}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792401504606}
+{"level":"debug","message":"[vite] hot updated: /src/components/SendPanel.tsx","timestamp":1792401504607}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792401505659}
+{"level":"debug","message":"[vite] hot updated: /src/components/SendPanel.tsx","timestamp":1792401505659}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792401505660}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792401655326}
+{"level":"debug","message":"[vite] hot updated: /src/components/BalanceCard.tsx","timestamp":1792401680834}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792401680834}
+{"level":"debug","message":"[vite] hot updated: /src/components/BalanceCard.tsx","timestamp":1792401680834}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792401680834}
+{"level":"debug","message":"[vite] hot updated: /src/components/RecipientsCard.tsx","timestamp":1792401706886}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792401706886}
+{"level":"debug","message":"[vite] hot updated: /src/components/RecipientsCard.tsx","timestamp":1792401706887}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792401706887}
+{"level":"debug","message":"[vite] hot updated: /src/components/DistributeButton.tsx","timestamp":1792401733516}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792401733516}
+{"level":"debug","message":"[vite] hot updated: /src/components/DistributeButton.tsx","timestamp":1792401733516}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792401733517}
+{"level":"debug","message":"[vite] hot updated: /src/components/SendPanel.tsx","timestamp":1792401765176}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792401765176}
+{"level":"debug","message":"[vite] hot updated: /src/components/SendPanel.tsx","timestamp":1792401765177}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792401765177}
+{"level":"debug","message":"[vite] hot updated: /src/components/OwnerPanel.tsx","timestamp":1792401798505}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792401798505}
+{"level":"debug","message":"[vite] hot updated: /src/components/OwnerPanel.tsx","timestamp":1792401798506}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792401798506}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792401819042}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792401819042}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792401819042}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792401819042}
+{"level":"debug","message":"[vite] connected.","timestamp":1792401881765}
+{"level":"debug","message":"[vite] connected.","timestamp":1792402059665}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792402159950}
+{"level":"debug","message":"[vite] hot updated: /src/components/SendPanel.tsx","timestamp":1792402159950}
+{"level":"debug","message":"[vite] hot updated: /src/components/DistributeButton.tsx","timestamp":1792402159950}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792402160941}
+{"level":"debug","message":"[vite] hot updated: /src/components/SendPanel.tsx","timestamp":1792402160942}
+{"level":"debug","message":"[vite] connected.","timestamp":1792402504259}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792402669966}
+{"level":"error","message":"[vite] TypeError: Importing a module script failed.","timestamp":1792403570467}
+{"level":"error","message":"[vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792403570468}
+{"level":"error","message":"[vite] TypeError: Importing a module script failed.","timestamp":1792403570468}
+{"level":"error","message":"[vite] Failed to reload /src/components/RecipientsCard.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792403570468}
+{"level":"error","message":"[vite] TypeError: Importing a module script failed.","timestamp":1792403570468}
+{"level":"error","message":"[vite] Failed to reload /src/components/DistributeButton.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792403570468}
+{"level":"error","message":"[vite] TypeError: Importing a module script failed.","timestamp":1792403570468}
+{"level":"error","message":"[vite] Failed to reload /src/components/BalanceCard.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792403570468}
+{"level":"error","message":"[vite] TypeError: Importing a module script failed.","timestamp":1792403570468}
+{"level":"error","message":"[vite] Failed to reload /src/components/SendPanel.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792403570468}
+{"level":"error","message":"[vite] TypeError: Importing a module script failed.","timestamp":1792403570469}
+{"level":"error","message":"[vite] Failed to reload /src/components/OwnerPanel.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792403570469}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792403570559}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792403570560}
+{"level":"debug","message":"[vite] hot updated: /src/components/SendPanel.tsx","timestamp":1792403570560}
+{"level":"debug","message":"[vite] hot updated: /src/components/RecipientsCard.tsx","timestamp":1792403570560}
+{"level":"debug","message":"[vite] hot updated: /src/components/DistributeButton.tsx","timestamp":1792403570560}
+{"level":"debug","message":"[vite] hot updated: /src/components/OwnerPanel.tsx","timestamp":1792403570561}
+{"level":"debug","message":"[vite] hot updated: /src/components/BalanceCard.tsx","timestamp":1792403570561}
+{"level":"error","message":"[vite] TypeError: Importing a module script failed.","timestamp":1792403582529}
+{"level":"error","message":"[vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792403582529}
+{"level":"error","message":"[vite] TypeError: Importing a module script failed.","timestamp":1792403582529}
+{"level":"error","message":"[vite] Failed to reload /src/components/BalanceCard.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792403582530}
+{"level":"error","message":"[vite] TypeError: Importing a module script failed.","timestamp":1792403582530}
+{"level":"error","message":"[vite] Failed to reload /src/components/DistributeButton.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792403582530}
+{"level":"error","message":"[vite] TypeError: Importing a module script failed.","timestamp":1792403582530}
+{"level":"error","message":"[vite] Failed to reload /src/components/OwnerPanel.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792403582530}
+{"level":"error","message":"[vite] TypeError: Importing a module script failed.","timestamp":1792403582530}
+{"level":"error","message":"[vite] Failed to reload /src/components/SendPanel.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792403582530}
+{"level":"error","message":"[vite] TypeError: Importing a module script failed.","timestamp":1792403582530}
+{"level":"error","message":"[vite] Failed to reload /src/components/RecipientsCard.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792403582530}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792403582530}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792403582530}
+{"level":"debug","message":"[vite] hot updated: /src/components/SendPanel.tsx","timestamp":1792403582530}
+{"level":"debug","message":"[vite] hot updated: /src/components/RecipientsCard.tsx","timestamp":1792403582530}
+{"level":"debug","message":"[vite] hot updated: /src/components/DistributeButton.tsx","timestamp":1792403582530}
+{"level":"debug","message":"[vite] hot updated: /src/components/OwnerPanel.tsx","timestamp":1792403582530}
+{"level":"debug","message":"[vite] hot updated: /src/components/BalanceCard.tsx","timestamp":1792403582530}
+{"level":"error","message":"[vite] TypeError: Importing a module script failed.","timestamp":1792403615890}
+{"level":"error","message":"[vite] Failed to reload /src/components/BalanceCard.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792403615890}
+{"level":"error","message":"[vite] TypeError: Importing a module script failed.","timestamp":1792403615890}
+{"level":"error","message":"[vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792403615890}
+{"level":"error","message":"[vite] TypeError: Importing a module script failed.","timestamp":1792403615890}
+{"level":"error","message":"[vite] Failed to reload /src/components/SendPanel.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792403615890}
+{"level":"error","message":"[vite] TypeError: Importing a module script failed.","timestamp":1792403615890}
+{"level":"error","message":"[vite] Failed to reload /src/components/DistributeButton.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792403615890}
+{"level":"error","message":"[vite] TypeError: Importing a module script failed.","timestamp":1792403615891}
+{"level":"error","message":"[vite] Failed to reload /src/components/RecipientsCard.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792403615891}
+{"level":"error","message":"[vite] TypeError: Importing a module script failed.","timestamp":1792403615958}
+{"level":"error","message":"[vite] Failed to reload /src/components/OwnerPanel.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792403615958}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792403615958}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792403615958}
+{"level":"debug","message":"[vite] hot updated: /src/components/SendPanel.tsx","timestamp":1792403615958}
+{"level":"debug","message":"[vite] hot updated: /src/components/RecipientsCard.tsx","timestamp":1792403615958}
+{"level":"debug","message":"[vite] hot updated: /src/components/DistributeButton.tsx","timestamp":1792403615958}
+{"level":"debug","message":"[vite] hot updated: /src/components/OwnerPanel.tsx","timestamp":1792403615958}
+{"level":"debug","message":"[vite] hot updated: /src/components/BalanceCard.tsx","timestamp":1792403615958}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792403681661}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792404074130}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitSelector.tsx","timestamp":1792404074131}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792404082753}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792404082754}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792404127538}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792404127538}
+{"level":"debug","message":"[vite] connected.","timestamp":1792404150343}
+{"level":"debug","message":"[vite] connected.","timestamp":1792404151223}
+{"level":"debug","message":"[vite] connected.","timestamp":1792404640819}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792404654371}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792404654371}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792404655354}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792404655354}
+{"level":"debug","message":"[vite] connected.","timestamp":1792406452201}
+{"level":"debug","message":"[vite] connected.","timestamp":1792407128022}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792407172402}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792407172402}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792407173119}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792407173119}
+{"level":"debug","message":"[vite] connected.","timestamp":1792407921436}
+{"level":"debug","message":"[vite] connected.","timestamp":1792407995225}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792408036193}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792408036193}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792408036193}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792408036193}
+{"level":"debug","message":"(previous line repeated 1× more)","timestamp":1792408051103}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792408051103}
+{"level":"debug","message":"(previous line repeated 1× more)","timestamp":1792408051103}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792408051103}
+{"level":"debug","message":"[vite] connected.","timestamp":1792408097393}
+{"level":"debug","message":"[vite] connected.","timestamp":1792408098446}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792408734803}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792408734826}
+{"level":"debug","message":"[vite] connected.","timestamp":1792408741792}
+{"level":"debug","message":"[vite] connected.","timestamp":1792408743127}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792408746501}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792408746501}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792408747279}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792408747279}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792408798744}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792408798744}
+{"level":"debug","message":"(previous line repeated 1× more)","timestamp":1792408869946}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792408869946}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792408873018}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792408873018}
+{"level":"debug","message":"(previous line repeated 1× more)","timestamp":1792408884310}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792408884310}
+{"level":"debug","message":"(previous line repeated 1× more)","timestamp":1792408896654}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792408896654}
+{"level":"debug","message":"(previous line repeated 1× more)","timestamp":1792408923277}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792408923277}
+{"level":"debug","message":"(previous line repeated 1× more)","timestamp":1792408923278}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792408923278}
+{"level":"debug","message":"[vite] connected.","timestamp":1792409179720}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792409202420}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792409202421}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792409203395}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792409203396}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792409678378}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792409678382}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792409762754}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792409762754}
+{"level":"debug","message":"[vite] connected.","timestamp":1792410626052}
+{"level":"debug","message":"[vite] connected.","timestamp":1792411502365}
+{"level":"debug","message":"[vite] connected.","timestamp":1792411504099}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792411525406}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitSelector.tsx","timestamp":1792411525407}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792411525408}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitSelector.tsx","timestamp":1792411525408}
+{"level":"debug","message":"[vite] connected.","timestamp":1792411611991}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792411960015}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792411960059}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792412159918}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitSelector.tsx","timestamp":1792412159918}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792412175850}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792412175850}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792412175851}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792412175851}
+{"level":"debug","message":"[vite] connected.","timestamp":1792412282128}
+{"level":"debug","message":"[vite] connected.","timestamp":1792412326747}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792412434860}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792412434860}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792412435746}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792412435746}
+{"level":"debug","message":"[vite] connected.","timestamp":1792412445102}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitSelector.tsx","timestamp":1792414471418}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792414471418}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitSelector.tsx","timestamp":1792414471419}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792414471419}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitSelector.tsx","timestamp":1792414487737}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792414487737}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitSelector.tsx","timestamp":1792414487738}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792414487738}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792414507811}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792414507811}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792414507812}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792414507812}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792414523251}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792414523251}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792415899329}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitSelector.tsx","timestamp":1792416095255}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792416095255}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792416122016}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792416122016}
+{"level":"debug","message":"[vite] connected.","timestamp":1792416154315}
+{"level":"debug","message":"[vite] connected.","timestamp":1792416493320}
+{"level":"debug","message":"[vite] connected.","timestamp":1792416494318}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792416512582}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792416512583}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792416513537}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792416513537}
+{"level":"debug","message":"[vite] connected.","timestamp":1792416524308}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792416650746}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792416650834}
+{"level":"debug","message":"[vite] connected.","timestamp":1792488873923}
+{"level":"debug","message":"[vite] connected.","timestamp":1792489062771}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792489469466}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792489469467}
+{"level":"debug","message":"[vite] connected.","timestamp":1792489486096}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792489491127}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792489491128}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792489491132}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792489491132}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792489491840}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792489491840}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792489707914}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792489707914}
+{"level":"debug","message":"[vite] connected.","timestamp":1792489726290}
+{"level":"debug","message":"[vite] connected.","timestamp":1792489811845}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792490007307}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792491573558}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792491573564}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792491636277}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792491636277}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitSelector.tsx","timestamp":1792491647421}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792491647421}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792491668731}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792491668731}
+{"level":"debug","message":"[vite] connected.","timestamp":1792491721018}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792491731498}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792491731498}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792491732275}
+{"level":"debug","message":"[vite] hot updated: /src/components/SplitCard.tsx","timestamp":1792491732275}

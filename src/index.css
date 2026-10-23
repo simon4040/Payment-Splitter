@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Canvas — pure near-black charcoal, no color tint */
+  --bg: #0c0c0c;
+  --bg-gradient: linear-gradient(160deg, #0c0c0c 0%, #0f0f0f 45%, #111111 100%);
+
+  /* Surfaces — three distinct tones for hierarchy */
+  --surface:        rgba(255, 255, 255, 0.055);   /* secondary cards */
+  --surface-strong: rgba(255, 255, 255, 0.09);    /* hero card — visibly elevated */
+  --surface-muted:  rgba(255, 255, 255, 0.04);    /* inner fields, rows */
+  --surface-raised: rgba(245, 200, 66, 0.06);     /* hover state on interactive rows */
+
+  /* Ink — clean white primary, brighter warm grays for secondary */
+  --ink:   #ffffff;
+  --ink-2: #d8d8d8;
+
+  /* Text — significantly brighter for readability */
+  --muted:  #c8c8c8;
+  --subtle: #a0a0a0;
+
+  /* Borders — gold-tinted */
+  --border:        rgba(245, 200, 66, 0.12);
+  --border-strong: rgba(245, 200, 66, 0.30);
+  --border-hero:   rgba(245, 200, 66, 0.20);   /* balance card border */
+
+  /* Accent — pure gold */
+  --accent:       #F5C842;
+  --accent-hover: #FFD966;
+  --accent-dim:   rgba(245, 200, 66, 0.14);
+
+  /* Semantic */
+  --success:      #F5C842;
+  --success-dim:  rgba(245, 200, 66, 0.10);
+  --danger:       #f87171;
+  --danger-dim:   rgba(248, 113, 113, 0.10);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100dvh;
+  background: var(--bg-gradient);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.display {
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -0.03em;
+}
+
+.mono {
+  font-family: 'JetBrains Mono', Menlo, monospace;
+  font-feature-settings: 'tnum';
+}
+
+/* Subtle scrollbar */
+::-webkit-scrollbar        { width: 4px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  { background: rgba(245,200,66,0.18); border-radius: 2px; }
+
+/* Card shadows */
+.card-hero {
+  box-shadow:
+    0 1px 2px rgba(0,0,0,0.50),
+    0 4px 24px rgba(0,0,0,0.35),
+    0 0 0 1px var(--border-hero),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+.card-secondary {
+  box-shadow:
+    0 1px 2px rgba(0,0,0,0.25),
+    0 2px 8px rgba(0,0,0,0.18),
+    0 0 0 1px var(--border);
+}
+
+.card-flat {
+  box-shadow: 0 0 0 1px var(--border);
+}
+
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
