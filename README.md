@@ -20,9 +20,7 @@ recipient proportionally.
 | Network      | Address                                        | Explorer |
 |--------------|------------------------------------------------|----------|
 | Arc Testnet  | `0x20b1f718b7a612f605414bc47c5a2abdde1659cc`   | [ArcScan](https://explorer.testnet.arc.io/address/0x20b1f718b7a612f605414bc47c5a2abdde1659cc) |
-| Arc Mainnet  | `0x9336ef11392Db07873cca919EeD8A4C6Cc1bB881` 
-| [ArcScan] 
-(https://arc.etherscan.io/address/0x9336ef11392db07873cca919eed8a4c6cc1bb881) | 
+| Arc Mainnet  | `0x9336ef11392Db07873cca919EeD8A4C6Cc1bB881`   | [ArcScan](https://arc.etherscan.io/address/0x9336ef11392db07873cca919eed8a4c6cc1bb881) | 
 
 USDC on Arc Testnet: `0x3600000000000000000000000000000000000000`
 USDC on Arc Mainnet: `0x3600000000000000000000000000000000000000`
