@@ -8,14 +8,28 @@ import {
   useWaitForTransactionReceipt, useSwitchChain,
 } from 'wagmi'
 import { erc20Abi } from 'viem'
+import { useQueryClient } from '@tanstack/react-query'
 import { Loader2, ExternalLink, ArrowDownToLine, Send, GitBranch, Copy, Check } from 'lucide-react'
 import { toast } from 'sonner'
 import { TokenUSDC } from '@web3icons/react'
-import { SPLIT_FACTORY, ARC_MAINNET_USDC, ARC_MAINNET_ID } from '@/contract'
+import { useChain } from '@/hooks/useChain'
 import { formatUsdc, parseUsdc, bpsToPercent, formatAddress, parseOnchainError } from '@/utils'
 import { buildTxExplorerUrl } from '@/onchain-facts'
 import { Amount, usdcDecimalsFor } from '@/onchain-money'
-import { getRecipientLabel } from '@/hooks/useSplitTitle'
+import { useRecipientLabels } from '@/hooks/useRecipientLabels'
+import { RecipientTagsEditor } from '@/components/RecipientTagsEditor'
+import { useFeeConfig, previewFee } from '@/hooks/useFeeConfig'
+import { useActivity, announceAward } from '@/hooks/usePoints'
+import { estimateAward } from '@/hooks/strTiers'
+import { StrNotice } from '@/components/StrNotice'
+import { formatUnits, type Abi } from 'viem'
+
+/** USDC amount with at least 2 and at most 6 decimals, trailing zeros trimmed. */
+function fmtPrecise(raw: bigint): string {
+  const [whole, frac = ''] = formatUnits(raw, 6).split('.')
+  const trimmed = frac.replace(/0+$/, '').padEnd(2, '0')
+  return `${Number(whole).toLocaleString('en-US')}.${trimmed}`
+}
 
 // ─── Copy button ──────────────────────────────────────────────────────────────
 
@@ -53,28 +67,44 @@ const QUICK_AMOUNTS = ['1', '5', '10', '25', '100']
 // ─── Deposit ──────────────────────────────────────────────────────────────────
 
 function DepositSection({ splitId, onDeposited }: { splitId: bigint; onDeposited: () => void }) {
+  const chain = useChain()
+  const queryClient = useQueryClient()
   const [amount, setAmount] = useState('')
   const { address, isConnected, chainId } = useAccount()
   const { switchChain } = useSwitchChain()
-  const isWrongChain = isConnected && chainId !== ARC_MAINNET_ID
+  const isWrongChain = isConnected && chainId !== chain.id
 
   const { data: userBalance, refetch: refetchBal } = useReadContract({
-    address: ARC_MAINNET_USDC, abi: erc20Abi, functionName: 'balanceOf',
-    args: [address!], chainId: ARC_MAINNET_ID,
+    address: chain.usdc, abi: erc20Abi, functionName: 'balanceOf',
+    args: [address!], chainId: chain.id,
     query: { enabled: !!address },
   })
   const { data: allowance, refetch: refetchAllowance } = useReadContract({
-    address: ARC_MAINNET_USDC, abi: erc20Abi, functionName: 'allowance',
-    args: [address!, SPLIT_FACTORY.address], chainId: ARC_MAINNET_ID,
+    address: chain.usdc, abi: erc20Abi, functionName: 'allowance',
+    args: [address!, chain.points.address], chainId: chain.id,
     query: { enabled: !!address },
   })
 
   const formattedBal = userBalance !== undefined
-    ? Amount.fromRaw(userBalance, usdcDecimalsFor(ARC_MAINNET_ID)).toFixed(2)
+    ? Amount.fromRaw(userBalance, usdcDecimalsFor(chain.id)).toFixed(2)
     : null
 
   const parsed = parseUsdc(amount)
   const needsApproval = parsed > 0n && (allowance === undefined || allowance < parsed)
+
+  // Fee preview (mirrors the contract's integer math) + recipient-list version the deposit is pinned to
+  const { feeBps } = useFeeConfig()
+  const bps = feeBps !== undefined ? BigInt(feeBps) : 0n
+  const { net, fee } = previewFee(parsed, bps)
+  const showFee = feeBps !== undefined && parsed > 0n
+  const { earnedToday, tierToday } = useActivity()
+  const depositEst = estimateAward(parsed, earnedToday, tierToday)
+  const { data: versionData } = useReadContract({
+    address: chain.factory.address, abi: chain.factory.abi,
+    functionName: 'splitVersion', args: [splitId], chainId: chain.id,
+    query: { refetchInterval: 8000 },
+  })
+  const version = versionData as bigint | undefined
 
   const { writeContract: approve, data: approveHash, isPending: approveP } = useWriteContract()
   const { isLoading: approveConf } = useWaitForTransactionReceipt({
@@ -82,11 +112,11 @@ function DepositSection({ splitId, onDeposited }: { splitId: bigint; onDeposited
   })
 
   const { writeContract: deposit, data: depositHash, isPending: depositP, reset: resetDeposit } = useWriteContract()
-  const { isLoading: depositConf, isSuccess: depositDone } = useWaitForTransactionReceipt({
+  const { isLoading: depositConf, isSuccess: depositDone, data: depositReceipt } = useWaitForTransactionReceipt({
     hash: depositHash, query: { enabled: !!depositHash },
   })
 
-  const txUrl = depositHash ? buildTxExplorerUrl(ARC_MAINNET_ID, depositHash) : null
+  const txUrl = depositHash ? buildTxExplorerUrl(chain.id, depositHash) : null
   const isBusy = approveP || approveConf || depositP || depositConf
 
   const notifiedDepositRef = useRef<string | null>(null)
@@ -96,13 +126,16 @@ function DepositSection({ splitId, onDeposited }: { splitId: bigint; onDeposited
     void refetchBal()
     void refetchAllowance()
     onDeposited()
-  }, [depositDone, depositHash, refetchBal, refetchAllowance, onDeposited])
+    // Refresh STR points, balances and the leaderboard
+    void queryClient.invalidateQueries()
+    announceAward(depositReceipt?.logs ?? [], chain.points.abi as Abi)
+  }, [depositDone, depositHash, depositReceipt, refetchBal, refetchAllowance, onDeposited, queryClient, chain.points.abi])
 
   const handleApprove = () => {
-    if (isWrongChain) { switchChain({ chainId: ARC_MAINNET_ID }); return }
+    if (isWrongChain) { switchChain({ chainId: chain.id }); return }
     approve({
-      address: ARC_MAINNET_USDC, abi: erc20Abi, functionName: 'approve',
-      args: [SPLIT_FACTORY.address, parsed], chainId: ARC_MAINNET_ID,
+      address: chain.usdc, abi: erc20Abi, functionName: 'approve',
+      args: [chain.points.address, parsed], chainId: chain.id,
     }, {
       onSuccess: () => { void refetchAllowance(); toast.success('Approval confirmed.') },
       onError: (err) => toast.error(parseOnchainError(err)),
@@ -110,10 +143,11 @@ function DepositSection({ splitId, onDeposited }: { splitId: bigint; onDeposited
   }
 
   const handleDeposit = () => {
-    if (isWrongChain) { switchChain({ chainId: ARC_MAINNET_ID }); return }
+    if (isWrongChain) { switchChain({ chainId: chain.id }); return }
+    if (version === undefined) return
     deposit({
-      address: SPLIT_FACTORY.address, abi: SPLIT_FACTORY.abi, functionName: 'deposit',
-      args: [splitId, parsed], chainId: ARC_MAINNET_ID,
+      address: chain.points.address, abi: chain.points.abi, functionName: 'depositToSplit',
+      args: [splitId, parsed, version], chainId: chain.id,
     }, {
       onError: (err) => toast.error(parseOnchainError(err)),
     })
@@ -166,6 +200,25 @@ function DepositSection({ splitId, onDeposited }: { splitId: bigint; onDeposited
         </div>
       </div>
 
+      {showFee && (
+        <div className="rounded-2xl px-4 py-3 text-xs" style={{
+          background: 'rgba(245,200,66,0.05)', border: '1px solid rgba(245,200,66,0.14)',
+        }}>
+          <p className="tabular-nums" style={{ color: 'var(--ink-2)' }}>
+            <span style={{ color: 'var(--ink)', fontWeight: 600 }}>{fmtPrecise(parsed)} USDC</span>
+            {' → '}
+            <span style={{ color: 'var(--accent)', fontWeight: 600 }}>{fmtPrecise(net)}</span> to split
+            {' + '}
+            <span style={{ fontWeight: 600 }}>{fmtPrecise(fee)}</span> fee
+          </p>
+          <p className="mt-1" style={{ color: 'var(--subtle)' }}>
+            Protocol fee {bpsToPercent(bps)}% · only the amount after the fee is credited to this split
+          </p>
+        </div>
+      )}
+
+      {parsed > 0n && <StrNotice est={depositEst} what="deposit" />}
+
       <div className="flex gap-1.5 flex-wrap">
         {QUICK_AMOUNTS.map(q => (
           <button key={q} onClick={() => setAmount(q)}
@@ -183,7 +236,7 @@ function DepositSection({ splitId, onDeposited }: { splitId: bigint; onDeposited
       {!isConnected ? (
         <p className="text-xs text-center" style={{ color: 'var(--muted)' }}>Connect your wallet to deposit</p>
       ) : needsApproval ? (
-        <button disabled={parsed === 0n || isBusy} onClick={isWrongChain ? () => switchChain({ chainId: ARC_MAINNET_ID }) : handleApprove}
+        <button disabled={parsed === 0n || isBusy} onClick={isWrongChain ? () => switchChain({ chainId: chain.id }) : handleApprove}
           className="w-full rounded-2xl py-3.5 text-sm font-semibold transition-all active:scale-[0.99] disabled:opacity-40 disabled:cursor-not-allowed"
           style={{ background: 'rgba(245,200,66,0.10)', color: 'var(--accent)', boxShadow: '0 0 0 1px rgba(245,200,66,0.22)' }}>
           {isBusy
@@ -191,7 +244,7 @@ function DepositSection({ splitId, onDeposited }: { splitId: bigint; onDeposited
             : isWrongChain ? 'Switch Network' : 'Approve USDC'}
         </button>
       ) : (
-        <button disabled={parsed === 0n || isBusy} onClick={isWrongChain ? () => switchChain({ chainId: ARC_MAINNET_ID }) : handleDeposit}
+        <button disabled={parsed === 0n || isBusy || version === undefined} onClick={isWrongChain ? () => switchChain({ chainId: chain.id }) : handleDeposit}
           className="w-full rounded-2xl py-3.5 text-sm font-semibold transition-all active:scale-[0.99] disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           style={{
             background: parsed > 0n ? 'var(--accent)' : 'rgba(255,255,255,0.06)',
@@ -216,30 +269,36 @@ function DistributeSection({
   balance: bigint
   onDistributed: () => void
 }) {
+  const chain = useChain()
+  const queryClient = useQueryClient()
   const { isConnected, chainId } = useAccount()
   const { switchChain } = useSwitchChain()
-  const isWrongChain = isConnected && chainId !== ARC_MAINNET_ID
+  const isWrongChain = isConnected && chainId !== chain.id
   const canDistribute = balance > 0n
+  const { earnedToday, tierToday } = useActivity()
+  const distEst = estimateAward(balance, earnedToday, tierToday)
 
   const { writeContract, data: hash, isPending, reset } = useWriteContract()
-  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
+  const { isLoading: isConfirming, isSuccess, data: receipt } = useWaitForTransactionReceipt({
     hash, query: { enabled: !!hash },
   })
 
-  const txUrl = hash ? buildTxExplorerUrl(ARC_MAINNET_ID, hash) : null
+  const txUrl = hash ? buildTxExplorerUrl(chain.id, hash) : null
   const notifiedRef = useRef<string | null>(null)
 
   useEffect(() => {
     if (!isSuccess || !hash || notifiedRef.current === hash) return
     notifiedRef.current = hash
     onDistributed()
-  }, [isSuccess, hash, onDistributed])
+    void queryClient.invalidateQueries()
+    announceAward(receipt?.logs ?? [], chain.points.abi as Abi)
+  }, [isSuccess, hash, receipt, onDistributed, queryClient, chain.points.abi])
 
   const handleDistribute = () => {
-    if (isWrongChain) { switchChain({ chainId: ARC_MAINNET_ID }); return }
+    if (isWrongChain) { switchChain({ chainId: chain.id }); return }
     writeContract({
-      address: SPLIT_FACTORY.address, abi: SPLIT_FACTORY.abi,
-      functionName: 'distribute', args: [splitId], chainId: ARC_MAINNET_ID,
+      address: chain.points.address, abi: chain.points.abi,
+      functionName: 'distribute', args: [splitId], chainId: chain.id,
     }, {
       onSuccess: () => toast.success('Distributed to all recipients.'),
       onError: (err) => toast.error(parseOnchainError(err)),
@@ -302,6 +361,7 @@ function DistributeSection({
           : isConfirming ? <><Loader2 className="size-4 animate-spin" /> Distributing…</>
           : <><ArrowDownToLine className="size-4" /> Distribute</>}
       </button>
+      {canDistribute && <StrNotice est={distEst} what="distribution" />}
       <p className="text-center text-xs" style={{ color: 'var(--muted)', opacity: 0.8 }}>
         {!canDistribute && !isWrongChain
           ? 'Deposit USDC to this split first'
@@ -314,22 +374,28 @@ function DistributeSection({
 // ─── Root card ────────────────────────────────────────────────────────────────
 
 export function SplitCard({ splitId }: Props) {
+  const chain = useChain()
   const [optimisticBalanceZero, setOptimisticBalanceZero] = useState(false)
 
   const { data: splitData, isLoading: splitLoading, refetch: refetchSplit } = useReadContract({
-    address: SPLIT_FACTORY.address, abi: SPLIT_FACTORY.abi,
-    functionName: 'getSplit', args: [splitId], chainId: ARC_MAINNET_ID,
+    address: chain.factory.address, abi: chain.factory.abi,
+    functionName: 'getSplit', args: [splitId], chainId: chain.id,
     query: { refetchInterval: 8000 },
   })
   const { data: recipientData, isLoading: recLoading } = useReadContract({
-    address: SPLIT_FACTORY.address, abi: SPLIT_FACTORY.abi,
-    functionName: 'getRecipients', args: [splitId], chainId: ARC_MAINNET_ID,
+    address: chain.factory.address, abi: chain.factory.abi,
+    functionName: 'getRecipients', args: [splitId], chainId: chain.id,
     query: { refetchInterval: 12000 },
   })
 
   const [creator, rawBalance, totalDistributed] = (splitData as [string, bigint, bigint, bigint] | undefined) ?? ['', 0n, 0n, 0n]
   const addrs = (recipientData as [string[], bigint[]] | undefined)?.[0] ?? []
   const bpsArr = (recipientData as [string[], bigint[]] | undefined)?.[1] ?? []
+
+  const { address: me } = useAccount()
+  const { labelFor, onChain: tagsOnChain } = useRecipientLabels(splitId, addrs)
+  const [editingTags, setEditingTags] = useState(false)
+  const isCreator = !!me && !!creator && creator.toLowerCase() === me.toLowerCase()
 
   const balance = optimisticBalanceZero && rawBalance > 0n ? 0n : rawBalance
   const isLoading = splitLoading || recLoading
@@ -396,12 +462,27 @@ export function SplitCard({ splitId }: Props) {
             <GitBranch className="size-3.5" style={{ color: 'var(--accent)' }} />
             <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: 'var(--muted)', letterSpacing: '0.08em' }}>Recipients</span>
           </div>
-          {addrs.length > 0 && (
-            <span className="text-xs font-medium rounded-full px-2 py-0.5" style={{ background: 'rgba(245,200,66,0.10)', color: 'var(--accent)' }}>
-              {addrs.length}
-            </span>
-          )}
+          <div className="flex items-center gap-2">
+            {isCreator && tagsOnChain && addrs.length > 0 && !editingTags && (
+              <button
+                onClick={() => setEditingTags(true)}
+                className="flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-semibold transition-all active:scale-95"
+                style={{ background: 'rgba(255,255,255,0.05)', color: 'var(--ink-2)', boxShadow: '0 0 0 1px rgba(245,200,66,0.18)' }}
+              >
+                Edit tags
+              </button>
+            )}
+            {addrs.length > 0 && (
+              <span className="text-xs font-medium rounded-full px-2 py-0.5" style={{ background: 'rgba(245,200,66,0.10)', color: 'var(--accent)' }}>
+                {addrs.length}
+              </span>
+            )}
+          </div>
         </div>
+
+        {editingTags && (
+          <RecipientTagsEditor splitId={splitId} addrs={addrs} labelFor={labelFor} onClose={() => setEditingTags(false)} />
+        )}
 
         {recLoading ? (
           <div className="space-y-2.5">
@@ -422,7 +503,7 @@ export function SplitCard({ splitId }: Props) {
             {addrs.map((addr, i) => {
               const pct = bpsToPercent(bpsArr[i] ?? 0n)
               const width = `${(Number(bpsArr[i] ?? 0n) / 100)}%`
-              const label = getRecipientLabel(splitId, addr)
+              const label = labelFor(addr)
               return (
                 <div key={addr} className="rounded-2xl px-4 py-3" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(245,200,66,0.08)' }}>
                   <div className="flex items-center justify-between gap-3">
@@ -433,7 +514,7 @@ export function SplitCard({ splitId }: Props) {
                       </div>
                       <div className="min-w-0">
                         {label && (
-                          <p className="text-xs font-semibold truncate mb-0.5" style={{ color: '#E8C86A' }}>
+                          <p className="display truncate text-[0.95rem] font-bold leading-tight mb-0.5" style={{ color: '#F2CC66', letterSpacing: '-0.02em' }}>
                             {label}
                           </p>
                         )}

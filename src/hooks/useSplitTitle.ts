@@ -1,26 +1,32 @@
 /**
- * Stores and retrieves an optional display title for each split.
- * Titles are local-only (localStorage) — they are never sent to the chain.
- * Key format: "split-title-{id}"
+ * Local-only (localStorage) display data for splits: titles, recipient labels and
+ * hidden splits. Nothing here is sent onchain.
+ *
+ * Each chain has its own independent splits, so every key is scoped by chain ID.
+ * Arc keeps the original un-prefixed keys so data saved before multi-chain
+ * support still shows up; other chains use a "c{chainId}-" prefix.
  */
+import { CHAINS } from '@/contract'
 
-const KEY = (id: bigint) => `split-title-${id.toString()}`
+const prefix = (chainId: number) => (chainId === CHAINS.arc.id ? '' : `c${chainId}-`)
 
-export function getSplitTitle(id: bigint): string {
-  try { return localStorage.getItem(KEY(id)) ?? '' } catch { return '' }
+const TITLE_KEY = (chainId: number, id: bigint) => `${prefix(chainId)}split-title-${id.toString()}`
+
+export function getSplitTitle(chainId: number, id: bigint): string {
+  try { return localStorage.getItem(TITLE_KEY(chainId, id)) ?? '' } catch { return '' }
 }
 
-export function setSplitTitle(id: bigint, title: string): void {
+export function setSplitTitle(chainId: number, id: bigint, title: string): void {
   try {
     const trimmed = title.trim()
-    if (trimmed) localStorage.setItem(KEY(id), trimmed)
-    else localStorage.removeItem(KEY(id))
+    if (trimmed) localStorage.setItem(TITLE_KEY(chainId, id), trimmed)
+    else localStorage.removeItem(TITLE_KEY(chainId, id))
   } catch { /* storage unavailable — silent */ }
 }
 
 /** Display label: title if set, else "Split #N" */
-export function splitLabel(id: bigint): string {
-  const t = getSplitTitle(id)
+export function splitLabel(chainId: number, id: bigint): string {
+  const t = getSplitTitle(chainId, id)
   return t || `Split #${id.toString()}`
 }
 
@@ -28,51 +34,50 @@ export function splitLabel(id: bigint): string {
 // The contract is immutable; hiding only removes the split from the local list.
 // The split still exists onchain and is accessible via Jump to split.
 
-const HIDDEN_KEY = 'split-hidden-ids'
+const HIDDEN_KEY = (chainId: number) => `${prefix(chainId)}split-hidden-ids`
 
-function readHidden(): Set<string> {
+function readHidden(chainId: number): Set<string> {
   try {
-    const raw = localStorage.getItem(HIDDEN_KEY)
+    const raw = localStorage.getItem(HIDDEN_KEY(chainId))
     if (!raw) return new Set()
     return new Set(JSON.parse(raw) as string[])
   } catch { return new Set() }
 }
 
-function writeHidden(set: Set<string>): void {
-  try { localStorage.setItem(HIDDEN_KEY, JSON.stringify([...set])) } catch { /* silent */ }
+function writeHidden(chainId: number, set: Set<string>): void {
+  try { localStorage.setItem(HIDDEN_KEY(chainId), JSON.stringify([...set])) } catch { /* silent */ }
 }
 
-export function hideSplit(id: bigint): void {
-  const s = readHidden()
+export function hideSplit(chainId: number, id: bigint): void {
+  const s = readHidden(chainId)
   s.add(id.toString())
-  writeHidden(s)
+  writeHidden(chainId, s)
 }
 
-export function isHidden(id: bigint): boolean {
-  return readHidden().has(id.toString())
+export function isHidden(chainId: number, id: bigint): boolean {
+  return readHidden(chainId).has(id.toString())
 }
 
 /** Filter an array of IDs, removing any that have been locally hidden. */
-export function filterVisible(ids: bigint[]): bigint[] {
-  const hidden = readHidden()
+export function filterVisible(chainId: number, ids: bigint[]): bigint[] {
+  const hidden = readHidden(chainId)
   return ids.filter(id => !hidden.has(id.toString()))
 }
 
 // ─── Recipient labels (optional display name / social handle) ─────────────────
-// Stored locally in localStorage; never sent onchain.
-// Key format: "split-{id}-label-{addr_lowercase}"
+// Key format: "{prefix}split-{id}-label-{addr_lowercase}"
 
-const LABEL_KEY = (id: bigint, addr: string) =>
-  `split-${id.toString()}-label-${addr.toLowerCase()}`
+const LABEL_KEY = (chainId: number, id: bigint, addr: string) =>
+  `${prefix(chainId)}split-${id.toString()}-label-${addr.toLowerCase()}`
 
-export function getRecipientLabel(id: bigint, addr: string): string {
-  try { return localStorage.getItem(LABEL_KEY(id, addr)) ?? '' } catch { return '' }
+export function getRecipientLabel(chainId: number, id: bigint, addr: string): string {
+  try { return localStorage.getItem(LABEL_KEY(chainId, id, addr)) ?? '' } catch { return '' }
 }
 
-export function setRecipientLabel(id: bigint, addr: string, label: string): void {
+export function setRecipientLabel(chainId: number, id: bigint, addr: string, label: string): void {
   try {
     const trimmed = label.trim()
-    if (trimmed) localStorage.setItem(LABEL_KEY(id, addr), trimmed)
-    else localStorage.removeItem(LABEL_KEY(id, addr))
+    if (trimmed) localStorage.setItem(LABEL_KEY(chainId, id, addr), trimmed)
+    else localStorage.removeItem(LABEL_KEY(chainId, id, addr))
   } catch { /* storage unavailable — silent */ }
 }
