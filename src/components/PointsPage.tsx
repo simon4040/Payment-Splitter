@@ -9,6 +9,7 @@ import { useChain } from '@/hooks/useChain'
 import { usePointsStatus, useTotalPoints, useNow, useActivity, STREAK_LENGTH } from '@/hooks/usePoints'
 import { TIERS } from '@/hooks/strTiers'
 import { parseOnchainError } from '@/utils'
+import { DATA_SUFFIX } from '@/attribution'
 
 function fmtCountdown(ms: number): string {
   const total = Math.max(0, Math.ceil(ms / 1000))
@@ -54,7 +55,7 @@ export function PointsPage() {
     if (isWrongChain) { switchChain({ chainId: chain.id }); return }
     const willBonus = bonusNext
     writeContract({
-      address: chain.points.address, abi: chain.points.abi, functionName: 'checkIn', chainId: chain.id,
+      address: chain.points.address, abi: chain.points.abi, functionName: 'checkIn', chainId: chain.id, dataSuffix: DATA_SUFFIX,
     }, {
       onSuccess: () => {
         toast.success(willBonus ? '+30 STR points: 7-day streak bonus!' : '+5 STR points')

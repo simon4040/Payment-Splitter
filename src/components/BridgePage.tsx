@@ -19,6 +19,7 @@ import {
 } from '@/bridge'
 import { buildTxExplorerUrl } from '@/onchain-facts'
 import { parseUsdc, parseOnchainError, bpsToPercent } from '@/utils'
+import { DATA_SUFFIX } from '@/attribution'
 
 const card: React.CSSProperties = {
   background: 'rgba(255,255,255,0.035)',
@@ -264,7 +265,7 @@ export function BridgePage() {
     if (isWrongChain) { switchChain({ chainId: chain.id }); return }
     approve({
       address: chain.usdc, abi: erc20Abi, functionName: 'approve',
-      args: [chain.points.address, parsed], chainId: chain.id,
+      args: [chain.points.address, parsed], chainId: chain.id, dataSuffix: DATA_SUFFIX,
     }, {
       onSuccess: () => { void refetchAllowance(); toast.success('Approval confirmed.') },
       onError: e => toast.error(parseOnchainError(e)),
@@ -283,7 +284,7 @@ export function BridgePage() {
     }
     bridge({
       address: chain.points.address, abi: chain.points.abi, functionName: 'bridge',
-      args: [parsed, quote.maxFee, FAST_FINALITY, address, feeBps], chainId: chain.id,
+      args: [parsed, quote.maxFee, FAST_FINALITY, address, feeBps], chainId: chain.id, dataSuffix: DATA_SUFFIX,
     }, {
       onError: e => toast.error(parseOnchainError(e)),
     })

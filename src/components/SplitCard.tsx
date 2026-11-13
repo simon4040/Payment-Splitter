@@ -23,6 +23,7 @@ import { useActivity, announceAward } from '@/hooks/usePoints'
 import { estimateAward } from '@/hooks/strTiers'
 import { StrNotice } from '@/components/StrNotice'
 import { formatUnits, type Abi } from 'viem'
+import { DATA_SUFFIX } from '@/attribution'
 
 /** USDC amount with at least 2 and at most 6 decimals, trailing zeros trimmed. */
 function fmtPrecise(raw: bigint): string {
@@ -135,7 +136,7 @@ function DepositSection({ splitId, onDeposited }: { splitId: bigint; onDeposited
     if (isWrongChain) { switchChain({ chainId: chain.id }); return }
     approve({
       address: chain.usdc, abi: erc20Abi, functionName: 'approve',
-      args: [chain.points.address, parsed], chainId: chain.id,
+      args: [chain.points.address, parsed], chainId: chain.id, dataSuffix: DATA_SUFFIX,
     }, {
       onSuccess: () => { void refetchAllowance(); toast.success('Approval confirmed.') },
       onError: (err) => toast.error(parseOnchainError(err)),
@@ -147,7 +148,7 @@ function DepositSection({ splitId, onDeposited }: { splitId: bigint; onDeposited
     if (version === undefined) return
     deposit({
       address: chain.points.address, abi: chain.points.abi, functionName: 'depositToSplit',
-      args: [splitId, parsed, version], chainId: chain.id,
+      args: [splitId, parsed, version], chainId: chain.id, dataSuffix: DATA_SUFFIX,
     }, {
       onError: (err) => toast.error(parseOnchainError(err)),
     })
@@ -298,7 +299,7 @@ function DistributeSection({
     if (isWrongChain) { switchChain({ chainId: chain.id }); return }
     writeContract({
       address: chain.points.address, abi: chain.points.abi,
-      functionName: 'distribute', args: [splitId], chainId: chain.id,
+      functionName: 'distribute', args: [splitId], chainId: chain.id, dataSuffix: DATA_SUFFIX,
     }, {
       onSuccess: () => toast.success('Distributed to all recipients.'),
       onError: (err) => toast.error(parseOnchainError(err)),

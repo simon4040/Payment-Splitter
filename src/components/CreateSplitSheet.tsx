@@ -9,6 +9,7 @@ import { parseOnchainError } from '@/utils'
 import { setRecipientLabel } from '@/hooks/useSplitTitle'
 import { MAX_NAME_BYTES, cleanName, nameBytes } from '@/hooks/useSplitName'
 import { MAX_LABEL_BYTES } from '@/hooks/useRecipientLabels'
+import { DATA_SUFFIX } from '@/attribution'
 
 interface Props {
   open: boolean
@@ -95,7 +96,7 @@ export function CreateSplitSheet({ open, onClose, onCreated }: Props) {
     labelsW.writeContract(
       {
         address: chain.labels.address, abi: chain.labels.abi, functionName: 'setLabels', chainId: chain.id,
-        args: [id, labeled.map(r => r.addr.trim() as `0x${string}`), labeled.map(r => r.label.trim())],
+        args: [id, labeled.map(r => r.addr.trim() as `0x${string}`), labeled.map(r => r.label.trim())], dataSuffix: DATA_SUFFIX,
       },
       {
         onError: () => {
@@ -125,7 +126,7 @@ export function CreateSplitSheet({ open, onClose, onCreated }: Props) {
       })
     }
     nameW.writeContract(
-      { address: chain.names.address, abi: chain.names.abi, functionName: 'setName', args: [id, trimmedName], chainId: chain.id },
+      { address: chain.names.address, abi: chain.names.abi, functionName: 'setName', args: [id, trimmedName], chainId: chain.id, dataSuffix: DATA_SUFFIX, },
       {
         onError: () => {
           toast.message('Split created. Add its name from the split page.')
@@ -170,7 +171,7 @@ export function CreateSplitSheet({ open, onClose, onCreated }: Props) {
     const addrs = rows.map(r => r.addr.trim() as `0x${string}`)
     const bpsArr = rows.map(r => Math.round(parseFloat(r.pct) * 100))
     createW.writeContract(
-      { address: chain.factory.address, abi: chain.factory.abi, functionName: 'createSplit', args: [addrs, bpsArr], chainId: chain.id },
+      { address: chain.factory.address, abi: chain.factory.abi, functionName: 'createSplit', args: [addrs, bpsArr], chainId: chain.id, dataSuffix: DATA_SUFFIX, },
       { onError: (err) => toast.error(parseOnchainError(err)) },
     )
   }
